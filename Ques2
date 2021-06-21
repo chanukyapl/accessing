@@ -1,0 +1,36 @@
+package automationassignment;
+
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.Assert;
+
+public class automationassi {
+	public static void main(String[] args) {
+		System.setProperty("webdriver.chrome.driver", "C:\\Users\\labuser\\Downloads\\chromedriver_win32\\chromedriver.exe");
+		WebDriver driver=new ChromeDriver();
+		driver.manage().window().maximize();
+		driver.get("https://the-internet.herokuapp.com/login");
+		driver.manage().timeouts().implicitlyWait(4, TimeUnit.SECONDS);
+		driver.findElement(By.id("username")).sendKeys("something");
+		driver.findElement(By.id("password")).sendKeys("password!");
+		driver.findElement(By.xpath("/html/body/div[2]/div/div/form/button")).click();
+		Assert.assertEquals(driver.getCurrentUrl(), "https://the-internet.herokuapp.com/login");
+		
+		driver.findElement(By.id("username")).sendKeys("tomsmith");
+		driver.findElement(By.id("password")).sendKeys("SuperSecretPassword!");
+		driver.findElement(By.xpath("/html/body/div[2]/div/div/form/button")).click();
+		Assert.assertEquals(driver.getCurrentUrl(), "https://the-internet.herokuapp.com/secure");
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		driver.quit();
+		
+	}
+
+}
