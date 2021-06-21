@@ -1,0 +1,30 @@
+import static io.restassured.RestAssured.get;
+
+import org.testng.Assert;
+import org.testng.annotations.Test;
+
+import io.restassured.response.Response;
+
+public class appTest1 {
+	@Test
+	void RestTestCase_2ndPart()
+	{
+		Response response=get("https://reqres.in/api/unknown/999");
+		int statusCode=response.getStatusCode();
+		System.out.println("\nStatus code is: "+statusCode);
+		Assert.assertEquals(statusCode,404);
+		String responseBody=response.getBody().asString();
+		System.out.println("\nResponse Body is:"+responseBody);
+		Assert.assertEquals(responseBody,"{}");
+		
+	}
+	@Test
+	void RestTestCase2_2ndPart()
+	{
+		Response response=get("https://reqres.in/api/unknown/999");
+		String responseBody=response.getBody().asString();
+		System.out.println("\nResponse Body is:"+responseBody);
+		Assert.assertEquals(responseBody,"{}");
+		
+	}
+}
