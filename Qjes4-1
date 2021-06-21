@@ -1,0 +1,35 @@
+import static io.restassured.RestAssured.get;
+import static org.hamcrest.Matchers.equalTo;
+
+import org.testng.Assert;
+import org.testng.annotations.Test;
+
+import io.restassured.response.Response;
+
+public class appTest2 {
+	@Test
+	void RestTestCase_1stPart()
+	{
+		Response response=get("https://reqres.in/api/users/3");
+		
+		String responseBody=response.getBody().asString();
+		System.out.println("\nResponse Body is:"+responseBody);
+		
+		int statusCode=response.getStatusCode();
+		System.out.println("\nStatus code is :"+statusCode);
+//		System.out.println();
+		//Checking whether recieved Status code is 200
+		Assert.assertEquals(statusCode, 200);
+//		Assert.assertEquals(responseBody.contains("emma.wong@reqres.in"), true);
+	}
+
+	@Test
+	void RestTestCase1_2ndPart() {
+		get("https://reqres.in/api/users/3").then().body("data.id", equalTo(3));
+		get("https://reqres.in/api/users/3").then().body("data.email", equalTo("emma.wong@reqres.in"));
+		get("https://reqres.in/api/users/3").then().body("data.first_name", equalTo("Emma"));
+		get("https://reqres.in/api/users/3").then().body("data.last_name", equalTo("Wong"));
+		get("https://reqres.in/api/users/3").then().body("data.avatar", equalTo("https://reqres.in/img/faces/3-image.jpg"));
+		
+	}
+}
